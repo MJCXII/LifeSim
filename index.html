@@ -1,0 +1,69 @@
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script>
+         var pop = 7926439700;
+         var arr = [];
+
+         function randLine() {
+            var rand = Math.floor(Math.random() * 18239);
+            return rand;
+         }
+         
+         function growth() {
+             let y = Math.random();
+
+             $.get('names.txt', function(txt) {
+            var rand = randLine();
+            var name = (txt.split("\n")[rand]);   
+         
+                 if (y >= 0.29) {
+                     pop += 1;
+                     console.log(pop);
+                     arr.push(`${name} was born!`);
+                     console.log(`${name} was Born`)
+                     document.getElementById('pop').innerHTML = "Population: " + pop;
+                 } else {
+                     if (pop > 2) {
+                         pop -= 1;
+                         console.log(pop);
+                         arr.push(`${name} has died!`);
+                         console.log(`${name} has Died`)
+                         document.getElementById('pop').innerHTML = "Population: " + pop;
+                     } else {
+                         pop += 2;
+                         pop -= 1;
+                         console.log(pop);
+                         arr.push(`${name} has died!`);
+                         console.log(`${name} has Died`)
+                         document.getElementById('pop').innerHTML = "Population: " + pop;
+                     }
+                 }
+                });
+             setTimeout(growth, 232.55);
+             display();
+         }
+
+         function display() {
+             for (var i = 0; i < arr.length; i++) {
+                 document.getElementById('logger').innerHTML += arr[i] + "<br>";
+                 arr.shift();
+             }
+         }
+    
+
+      </script>
+   </head>
+   <body>
+      <div id="title">
+         <h1>New World</h1>
+         <button id="start" onclick="growth()">Start</button>
+         <p id="pop"></p>
+      </div>
+      <div id="main">
+         <p class="myBox" id="logger"></p>
+
+      </div>
+   </body>
+</html>
